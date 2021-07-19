@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 def split_each_shot(scores)
-  shots = []
-  scores.each do |s|
+  scores.each_with_object [] do |s, shots|
     if s == 'X'
       shots << 10
       shots << 0
@@ -11,7 +10,6 @@ def split_each_shot(scores)
       shots << s.to_i
     end
   end
-  shots
 end
 
 def slice_each_frame(shots)
