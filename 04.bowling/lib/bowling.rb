@@ -29,17 +29,15 @@ def slice_each_frame(shots)
 end
 
 def calculate_point(frames)
-  point = 0
-  frames.each_with_index do |frame, index|
-    point += if index != frames.size - 1 && frame[0] == 10 # strike
-               calculate_strike_point(frames, frame, index)
-             elsif frame[1] != 0 && frame.sum == 10 # spare
-               frame.sum + frames[index + 1][0]
-             else
-               frame.sum
-             end
+  frames.each_with_index.sum do |frame, index|
+    if index != frames.size - 1 && frame[0] == 10 # strike
+      calculate_strike_point(frames, frame, index)
+    elsif frame[1] != 0 && frame.sum == 10 # spare
+      frame.sum + frames[index + 1][0]
+    else
+      frame.sum
+    end
   end
-  p point
 end
 
 def calculate_strike_point(frames, frame, index)
@@ -55,7 +53,7 @@ def main(score)
     scores = score.split(',')
     shots = split_each_shot(scores)
     frames = slice_each_frame(shots)
-    calculate_point(frames)
+    p calculate_point(frames)
   else
     p '結果を入力してください。'
   end
